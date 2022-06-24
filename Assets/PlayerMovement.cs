@@ -5,20 +5,33 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rig;
-    float speed = 10;
+    float speed = 80;
+    float jumpforce = 10f;
+    public bool isGrounded = false;
+    float maxSideways = 10f;
+    Vector2 movement = new Vector2(0, 0);
+    bool isJumping = false;
     // Start is called before the first frame update
     void Start()
     {
+        isGrounded = false;
+        isJumping = false;
         rig = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 movement = new Vector2(0,0);
-        if(Input.GetKey(KeyCode.UpArrow))
+        movement = new Vector2(0, 0);
+        /*
+        if (isGrounded)
+            rig.gravityScale = 0;
+        else
+            rig.gravityScale = 1;
+        */
+        if(isGrounded && Input.GetKey(KeyCode.UpArrow))
         {
-            movement.y = 1;
+            isJumping = true;
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
@@ -32,7 +45,36 @@ public class PlayerMovement : MonoBehaviour
         {
             movement.x = 1;
         }
-
-        rig.velocity += movement*speed*Time.deltaTime;
+        /*
+        if (rig.velocity.magnitude < 20)
+            rig.velocity += movement*speed*Time.deltaTime;
+        */
+        
+        
+        //Debug.Log(rig.velocity.magnitude);
     }
+
+    private void FixedUpdate()
+    {
+        if(isJumping)
+        {
+            rig.AddForce(Vector2.up*jumpforce, ForceMode2D.Impulse);
+            isJumping = false;
+            isGrounded = false;
+        }
+        else
+        {
+            if(movement.sqrMagnitude>0)
+            rig.velocity += movement * speed * Time.deltaTime;
+            /*
+            if (rig.velocity.x > maxSideways)
+                rig.velocity = new Vector2(maxSideways, rig.velocity.y);
+            if (rig.velocity.x < -maxSideways)
+                rig.velocity = new Vector2(-maxSideways, rig.velocity.y);
+            */
+        }
+        
+    }
+
+
 }
