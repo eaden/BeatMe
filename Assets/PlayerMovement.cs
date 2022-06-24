@@ -6,9 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rig;
     float speed = 80;
-    float jumpforce = 10f;
+    float jumpforce = 5f;
     public bool isGrounded = false;
-    float maxSideways = 10f;
+    float maxSideways = 3f;
     Vector2 movement = new Vector2(0, 0);
     bool isJumping = false;
     // Start is called before the first frame update
@@ -62,17 +62,13 @@ public class PlayerMovement : MonoBehaviour
             isJumping = false;
             isGrounded = false;
         }
-        else
-        {
-            if(movement.sqrMagnitude>0)
-            rig.velocity += movement * speed * Time.deltaTime;
-            /*
-            if (rig.velocity.x > maxSideways)
-                rig.velocity = new Vector2(maxSideways, rig.velocity.y);
-            if (rig.velocity.x < -maxSideways)
-                rig.velocity = new Vector2(-maxSideways, rig.velocity.y);
-            */
-        }
+        rig.velocity += movement * speed * Time.deltaTime;
+        
+        if (rig.velocity.x > maxSideways)
+            rig.velocity = new Vector2(maxSideways, rig.velocity.y);
+        if (rig.velocity.x < -maxSideways)
+            rig.velocity = new Vector2(-maxSideways, rig.velocity.y);
+        
         
     }
 
