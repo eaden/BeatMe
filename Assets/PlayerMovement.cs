@@ -11,17 +11,20 @@ public class PlayerMovement : MonoBehaviour
     float maxSideways = 3f;
     Vector2 movement = new Vector2(0, 0);
     bool isJumping = false;
+    bool isHanding = false;
     // Start is called before the first frame update
     void Start()
     {
         isGrounded = false;
         isJumping = false;
+        isHanding = false;
         rig = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         movement = new Vector2(0, 0);
         /*
         if (isGrounded)
@@ -29,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
         else
             rig.gravityScale = 1;
         */
-        if(isGrounded && Input.GetKey(KeyCode.UpArrow))
+        if(isGrounded && Input.GetKey(KeyCode.UpArrow) && !isJumping)
         {
             isJumping = true;
         }
@@ -45,12 +48,16 @@ public class PlayerMovement : MonoBehaviour
         {
             movement.x = 1;
         }
+        if (Input.GetKey(KeyCode.L) && !isHanding)
+        {
+            isHanding = true;
+        }
         /*
         if (rig.velocity.magnitude < 20)
             rig.velocity += movement*speed*Time.deltaTime;
         */
-        
-        
+
+
         //Debug.Log(rig.velocity.magnitude);
     }
 
@@ -68,7 +75,10 @@ public class PlayerMovement : MonoBehaviour
             rig.velocity = new Vector2(maxSideways, rig.velocity.y);
         if (rig.velocity.x < -maxSideways)
             rig.velocity = new Vector2(-maxSideways, rig.velocity.y);
-        
+        if(isHanding)
+        {
+
+        }
         
     }
 
