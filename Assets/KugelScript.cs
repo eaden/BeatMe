@@ -25,27 +25,53 @@ public class KugelScript : MonoBehaviour
     void Update()
     {
         movement = new Vector2(0, 0);
-
-        if (Input.GetKey(KeyCode.W))
+        if(gameObject.name == "Hand")
         {
-            movement.y = 1;
+            if (Input.GetKey(KeyCode.W))
+            {
+                movement.y = 1;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                movement.y = -1;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                movement.x = -1;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                movement.x = 1;
+            }
+            if (Input.GetKeyDown(KeyCode.Space) && !isHanding && !noLimit)
+            {
+                isHanding = true;
+            }
         }
-        if (Input.GetKey(KeyCode.S))
+        else
         {
-            movement.y = -1;
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                movement.y = 1;
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                movement.y = -1;
+            }
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                movement.x = -1;
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                movement.x = 1;
+            }
+            if (Input.GetKeyDown(KeyCode.KeypadEnter) && !isHanding && !noLimit)
+            {
+                isHanding = true;
+            }
         }
-        if (Input.GetKey(KeyCode.A))
-        {
-            movement.x = -1;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            movement.x = 1;
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && !isHanding && !noLimit)
-        {
-            isHanding = true;
-        }
+        
     }
     private void FixedUpdate()
     {

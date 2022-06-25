@@ -24,14 +24,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        movement = new Vector2(0, 0);
+        
+        //movement = new Vector2(0, 0);
         /*
         if (isGrounded)
             rig.gravityScale = 0;
         else
             rig.gravityScale = 1;
         */
+        /*
         if(isGrounded && Input.GetKey(KeyCode.UpArrow) && !isJumping)
         {
             isJumping = true;
@@ -52,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isHanding = true;
         }
+        */
         /*
         if (rig.velocity.magnitude < 20)
             rig.velocity += movement*speed*Time.deltaTime;
@@ -63,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        /*
         if(isJumping)
         {
             rig.AddForce(Vector2.up*jumpforce, ForceMode2D.Impulse);
@@ -79,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         {
 
         }
-        
+        */
     }
 
 
